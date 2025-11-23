@@ -35,8 +35,9 @@ Instead, it leverages the **ADC input** already available on existing MMU boards
 A list of recommended ADC-capable pins for common MMU boards will be provided below.
 
 ------
-
-
+ 
+ 
+ 
 
 ## ⚠ ADC Pull-up Considerations
 
@@ -76,7 +77,7 @@ If your MMU board's ADC pin **does not** include a pull-up resistor and you want
 
  
 
-**Testing Kit Availability **
+**Testing Kit Availability**
 
 A testing version of the kit is now available on AliExpress:
 
