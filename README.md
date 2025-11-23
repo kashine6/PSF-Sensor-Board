@@ -18,7 +18,6 @@ With this signal, the firmware can determine the exact current position of the f
 
 It can also function as a simplified **clog and tangle detection mechanism without using an encoder**.
 
-------
 
 
 
@@ -34,7 +33,6 @@ Instead, it leverages the **ADC input** already available on existing MMU boards
 
 A list of recommended ADC-capable pins for common MMU boards will be provided below.
 
-------
  
  
  
@@ -62,7 +60,6 @@ If your MMU board's ADC pin **does not** include a pull-up resistor and you want
 
 
 
-------
 
 
 
@@ -97,5 +94,5 @@ Relevant Pull Request:
 To use this feature right now, you must switch to igiannakas’ branch:
  https://github.com/igiannakas/Happy-Hare/tree/proportional-sync-feedback-control-fixes
 
-------
+
 
