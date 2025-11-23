@@ -2,7 +2,7 @@
 
 This is a Proportional Feedback Sensor solution designed for MMU systems.
 
-<img src="Assets/3.png" width="35%" style="display:inline-block; margin-right:5%;"/><img src="Assets/4.png" width="39%" style="display:inline-block;"/>
+<img src="Assets/7.png" width="70%"/>
 
 
 
@@ -34,7 +34,7 @@ Instead, it leverages the **ADC input** already available on existing MMU boards
 A list of recommended ADC-capable pins for common MMU boards will be provided below.
 
  
- 
+
  
 
 ## ⚠ ADC Pull-up Considerations
