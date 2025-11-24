@@ -59,6 +59,9 @@ If your MMU board's ADC pin does not include a pull-up resistor and you want a p
 
 
 
+
+
+## 📍 Recommended ADC Pins
 A list of recommended ADC-capable pins for common MMU boards will be provided below:
 
 
