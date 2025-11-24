@@ -113,7 +113,7 @@ sync_feedback_fps_reversed: True
 ```
 
 
-## References & Acknowledgements
+## 🙏 References & Acknowledgements
 
 - The CAD design is based on modifications of [Tshine's Filament Sync Sensor](https://makerworld.com/en/models/507573).  
 - The Proportional Sync Feedback concept is inspired by [OpenAMS FPS](https://github.com/OpenAMSOrg/filament-buffer).  
