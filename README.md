@@ -30,7 +30,7 @@ Instead, it leverages the **ADC input** already available on existing MMU boards
 
 
 - **You must connect the signal output to a pin that supports ADC input.**
-- **Power input must be 3.3V only.**  **Do NOT use 5V — this may damage your controller board.**
+- **Power input must be `3.3V` only.**  ⚠️⚠️**Do NOT use `5V` — this may damage your controller board.**⚠️⚠️
 
 <img src="Assets/7.png" width="70%"/>
 
@@ -49,17 +49,6 @@ To support both boards with and without pull-up resistors,  this sensor board us
 Using a MMU board with ADC pull-ups will cause the sensor's ADC reading to shift upward by approximately **+0.1V** (depending on pull-up resistance).
 
 You can compensate for this in firmware configuration.
-
-
-
-**Optional but not needed:**
-
-If your MMU board's ADC pin does not include a pull-up resistor and you want a perfectly accurate voltage reading.
-You may **move the 0-ohm resistor** on the PSF board to an alternate position to eliminate any offset.
-
-Boards without ADC pull-ups include TZB, WGB, AFC-Lite, ERB, EASY-BRD, etc. 
-
-<img src="Assets/6.png" width="70%"/>
 
 
 
@@ -83,7 +72,6 @@ A list of recommended ADC-capable pins for common MMU boards will be provided be
 | **ECAS04 Bowden connector**     | —                                   | 2        |
 | **M2×6 mm SHCS screw**          |                                     | 4        |
 | **5V-to-3.3V Step-Down Module** | optional                            | 1        |
- 
 
 **A testing version of the kit is now available on AliExpress:**  
 waiting… it will appear within a week.
@@ -105,13 +93,82 @@ To use this feature right now, you must switch to igiannakas’ branch:
 
 
 
+##  ⚙️ Calibration
+
+**1. Enable detailed logging**
+
+In `mmu_parameters.cfg`, temporarily set:
+
+```
+log_level: 4
+```
+
+This will let you observe the sensor state in real time.
+
 You need to adjust the configuration in the `mmu_hardware.cfg` file within HappyHare according to the situation.
+
+
+
+**2. Determine the correct direction (`sync_feedback_fps_reversed`)**
+
+Move the slider to its left and right limit positions and observe the log output:
+
+- If the front-end trigger reports `tension`, set:
+
+  ```
+  sync_feedback_fps_reversed: True
+  ```
+
+- If the front-end trigger reports **`compressed`**, set:
+
+  ```
+  sync_feedback_fps_reversed: False
+  ```
+
+<img src="Assets/10.jpg" width="70%"/>
+
+
+
+
+
+
+**3. Set the neutral position (`sync_feedback_fps_set_point`)**
 
 ```
 sync_feedback_fps_set_point: 0.5
-sync_feedback_fps_range_multiplier: 1.0
-sync_feedback_fps_reversed: True
 ```
+
+Notes:
+
+- On boards `without ADC pull-ups`, the idle value should be very close to **0.5**.
+- On boards `with pull-ups`, a small offset is normal (typically **0.45–0.55**).
+- You may adjust this value slightly depending on whether the neutral reading drifts toward 0 or toward the extremes.
+- Whether the value rises or falls depends on the `magnet orientation.
+
+
+
+**4. Adjust the usable range (`sync_feedback_fps_range_multiplier`)**
+
+The Hall sensor is non-linear near its extremes, so the design does not use the full ADC range by default.
+
+Increase this multiplier (e.g., **1.1 or 1.2**) so that the left/right extremes map closer to ±1 in the firmware logs.
+
+Example log messages when correctly tuned:
+
+```
+STEPPER: MmuSyncFeedbackManager(inactive): Got sync force feedback update. State: tension (-1.0)
+STEPPER: MmuSyncFeedbackManager(inactive): Got sync force feedback update. State: compressed (1.0)
+```
+
+Default value:
+
+```
+sync_feedback_fps_range_multiplier: 1.0
+```
+
+
+
+
 
 
 ## 🙏 References & Acknowledgements
